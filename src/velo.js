@@ -9,12 +9,9 @@ export function initProps(props) {
   propStore = makeAutoObservable(props);
 }
 
-export const Velo = observer(function ({selector, element, children}) {
-  const Element = element;
-  const props = propStore[selector];
-  const ref = useRef(null);
-  refStore[selector] = ref;
-  return <Element {...props} ref={ref}>{children}</Element>;
+export const Velo = observer(function ({selector, element: Element, children}) {
+  refStore[selector] = useRef(null);
+  return <Element {...propStore[selector]} ref={refStore[selector]}>{children}</Element>;
 });
 
 export function $props(selector) {
